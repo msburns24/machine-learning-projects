@@ -1,8 +1,8 @@
 '''
 CIFAR10 Dataset
 
-Contains 60,000 images from 10 classes. 
-Images are 32x32, RGB --> Each shape = (32, 32, 3) 
+Contains 60,000 images from 10 classes.
+Images are 32x32, RGB --> Each shape = (32, 32, 3)
 
 classes = [
     'automobile',
@@ -17,6 +17,7 @@ classes = [
 ]
 
 '''
+print('Loading libraries...')
 import os
 import pathlib as pl
 from keras import Sequential
@@ -41,6 +42,7 @@ from dataset import load_data
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
+print('Loading data...')
 (X_train, y_train), (X_test, y_test) = load_data()
 X_train = X_train.astype('float32') / 255
 X_test  = X_test.astype('float32') / 255
@@ -60,7 +62,8 @@ pool_size=(2,2)
 do1_rate = 0.25
 do2_rate = 0.5
 dense1_kwargs = dict(
-    units=312,
+    # units=312,
+    units=32,
     activation='relu',
     kernel_initializer='he_normal',
 )
@@ -89,6 +92,7 @@ model.add(BatchNormalization())
 model.add(Dense(**dense2_kwargs))
 
 
+print('Starting training...\n')
 model.compile(
      optimizer=Adam(learning_rate=0.005),
      loss='categorical_crossentropy',

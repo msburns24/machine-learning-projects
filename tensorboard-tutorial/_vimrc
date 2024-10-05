@@ -1,0 +1,95 @@
+"                            Vim Configuration
+"                           ===================
+
+
+" Basic Configuration
+" -------------------
+set backspace=indent,eol,start   " Allow backspace over all
+set clipboard=unnamed            " Enable clipboard between Vim/other apps
+set encoding=UTF-8               " No dumb errors from it defaulting to ASCII
+set exrc                         " Allow local _vimrc files for config
+set hidden                       " Hide unused buffers
+set number                       " Show line numbers
+set splitbelow splitright        " Change split screen behavior
+set title                        " Show file title
+set wildmenu                     " Show advanced menu
+filetype plugin indent on        " Change indent type based on file type
+
+
+" Code Folding
+" ------------
+set foldmethod=indent            " Allow folding
+set foldlevel=99                 " Go up to 99 lines
+nnoremap <space> za              " Change fold/unfold from :za to :<space>
+
+
+" Column Highlighting
+" -------------------
+set colorcolumn=80                          " Highlight 80th column
+highlight ColorColumn                       
+    \ ctermbg=8 guibg=lightgray             " Highlighted column color 
+set completeopt=noinsert,menuone,noselect   " Make auto-complete like an IDE
+
+
+" Python PEP 8
+" ------------
+au BufNewFile,BufRead *.py   " Run this when reading or starting new *.py file
+    \ set tabstop=4          " When reading "\t" char, display as 4 spaces
+    \ set softtabstop=4      " Set number of columns for a tab to 4 columns
+    \ set shiftwidth=4       " Sets autoindentation to 4 spaces
+    \ set textwidth=79       " Limit lines to 79 characters
+    \ set expandtab          " Convert <TAB> to spaces
+    \ set autoindent         " Copy indent from current line for new line
+    \ set fileformat=unix    " Store in Unix to prevent GitHub conv issues
+
+
+" Plugins
+" -------
+set rtp+=C:/Users/msb/.vim/bundle/Vundle.vim   " Add Vundle to runtime path
+set nocompatible                               " Required
+filetype off                                   " Required
+
+call vundle#begin()
+Plugin 'scrooloose/nerdtree'             " File tree
+Plugin 'tmhedberg/SimpylFold'            " Python code folding
+" Plugin 'townk/vim-autoclose'           " Auto-close brackets
+Plugin 'VundleVim/Vundle.vim'            " Let Vundle manage Vundle, required
+" Syntax Checking/Highlighting
+    Plugin 'vim-syntastic/syntastic'     " Check syntax on each save
+    Plugin 'nvie/vim-flake8'             " PEP 8 checking
+    " Plugin 'jnurmine/Zenburn'          " Nice color scheme
+    Plugin 'hdima/python-syntax'         " Python-specific highlighting
+    let python_highlight_all=1           " All python syntax highlighting
+    syntax on
+call vundle#end()
+filetype plugin indent on                " Required
+
+
+" Shortcuts & Mappings
+" --------------------
+" inoremap [<CR> [<CR>]<C-o>O
+
+
+" Tab Behavior (Non-Python)
+" -------------------------
+set tabstop=2          " "\t" char displays as 2 spaces
+set softtabstop=2      " Set tab to 2 columns
+set shiftwidth=2       " Sets autoindentation to 2 spaces
+set expandtab          " Convert <TAB> to spaces
+set autoindent         " Copy indent from previous line 
+set fileformat=unix    " Store in Unix 
+
+
+" Temp File Behavior
+" ------------------
+set backup                         " Enable backups
+set writebackup                    " Make a backup before overwriting a file
+set backupdir=C:\WINDOWS\Temp      " Keep backup files in Temp directory
+set backupskip=C:\WINDOWS\Temp\*   " Path to check for backups of current file
+set directory=C:\WINDOWS\Temp      " Directory name for swap file
+
+
+" Whitespace
+" ----------
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h  " Flag unnecessary whitespace
+    \ match BadWhiteSpace /\s\+$/
